@@ -37,7 +37,11 @@ class LocomoIngester {
     } catch (error) {
       if (error.response) {
         // Server responded with error status
-        throw new Error(`HTTP ${error.response.status}: ${JSON.stringify(error.response.data)}`);
+        throw new Error(
+          `HTTP ${error.response.status}: ${JSON.stringify(
+            error.response.data
+          )}`
+        );
       } else if (error.request) {
         // Request was made but no response received
         throw new Error(`No response received: ${error.message}`);
@@ -63,20 +67,30 @@ class LocomoIngester {
     fs.writeFileSync(this.statusFile, JSON.stringify(status, null, 2));
   }
 
-  async ingestConversation(conversation, conversationId, forceReingest = false) {
+  async ingestConversation(
+    conversation,
+    conversationId,
+    forceReingest = false
+  ) {
     const status = this.loadIngestionStatus();
     const sessionId =
-      Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
 
     if (status.conversations[conversationId] && !forceReingest) {
-      console.log(`Conversation ${conversationId} already ingested, skipping...`);
+      console.log(
+        `Conversation ${conversationId} already ingested, skipping...`
+      );
       return false;
     }
 
     console.log(`BASE URL: ${this.baseUrl} ${process.env.BASE_URL}`);
     console.log(`Ingesting conversation ${conversationId}...`);
 
-    const episodes = this.formatConversationForIngestion(conversation, conversationId);
+    const episodes = this.formatConversationForIngestion(
+      conversation,
+      conversationId
+    );
     let successCount = 0;
     let errorCount = 0;
 
@@ -145,7 +159,11 @@ class LocomoIngester {
         if (Array.isArray(sessionData)) {
           sessionData.forEach((dialog, dialogIndex) => {
             episodes.push({
-              content: `${dialog.speaker}: ${dialog.blip_caption ? `Shared ${dialog.blip_caption}. ${dialog.query}.` : ""} ${dialog.text}`,
+              content: `${dialog.speaker}: ${
+                dialog.blip_caption
+                  ? `Shared ${dialog.blip_caption}. ${dialog.query}.`
+                  : ""
+              } ${dialog.text}`,
               metadata: {
                 conversationId,
                 sessionNumber: parseInt(sessionNumber),
@@ -183,7 +201,12 @@ class LocomoIngester {
                               Dec: 12,
                             };
                             const monthNum = monthMap[month] || 1;
-                            return `${year}-${monthNum.toString().padStart(2, "0")}-${day.padStart(2, "0")} ${hours}:${minutes} ${ampm}`;
+                            return `${year}-${monthNum
+                              .toString()
+                              .padStart(2, "0")}-${day.padStart(
+                              2,
+                              "0"
+                            )} ${hours}:${minutes} ${ampm}`;
                           }
                         )
                       )
@@ -221,7 +244,7 @@ class LocomoIngester {
 
     // Ingest each conversation
     for (let i = 0; i < conversations.length; i++) {
-      if (i === 9) {
+      if (i === 0) {
         const conversation = conversations[i];
         const conversationId = `locomo_${i + 1}`;
 
@@ -238,7 +261,10 @@ class LocomoIngester {
             skippedCount++;
           }
         } catch (error) {
-          console.error(`Error with conversation ${conversationId}:`, error.message);
+          console.error(
+            `Error with conversation ${conversationId}:`,
+            error.message
+          );
         }
       }
     }

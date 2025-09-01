@@ -1,0 +1,28 @@
+{
+  "name": "Core Benchmark",
+  "version": "1.0.0",
+  "description": "Core Benchmark",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "evaluate": "node locomo/evaluate_qa.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedPlanetHQ/core-benchmark.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedPlanetHQ/core-benchmark/issues"
+  },
+  "homepage": "https://github.com/RedPlanetHQ/core-benchmark#readme",
+  "dependencies": {
+    "@ai-sdk/openai": "^2.0.23",
+    "ai": "^5.0.28",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "zod": "^4.1.5"
+  }
+}
