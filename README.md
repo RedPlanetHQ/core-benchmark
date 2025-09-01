@@ -12,7 +12,7 @@ Core demonstrates strong performance across all question categories in the LOCOM
 - **Temporal**: 88% accuracy
 - **Overall Average**: 85% accuracy
 
-![Core Benchmark Results](https://github.com/user-attachments/assets/benchmark-chart.png)
+![Core Benchmark Results](./assets/benchmark-chart.png)
 
 _Comparison with other memory systems (mem0, memobase, zep) shows Core's consistent high performance across all categories._
 
@@ -58,6 +58,7 @@ node locomo/ingest_conversations.js
 ```
 
 This will:
+
 - Load conversations from `locomo/locomo10.json`
 - Send conversation data to your memory system's `/api/v1/ingest` endpoint
 - Track ingestion progress to avoid duplicates
